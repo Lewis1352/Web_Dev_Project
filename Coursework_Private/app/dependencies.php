@@ -50,11 +50,6 @@ $container['retrieveStockDataModel'] = function ($container) {
     return $retrieve_stock_data_model;
 };
 
-$container['processOutput'] = function ($container) {
-    $retrieve_stock_data_model = new \SoapClient\ProcessOutput();
-    return $retrieve_stock_data_model;
-};
-
 $container['SoapClient'] = function ($container) {
     $retrieve_stock_data_model = new \SoapClient\SoapWrapper();
     return $retrieve_stock_data_model;

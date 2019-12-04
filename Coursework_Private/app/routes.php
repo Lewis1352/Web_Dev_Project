@@ -11,7 +11,7 @@
 	*/
 
 require 'routes/homepage.php';
-require 'routes/entercompanysymbol.php';
+require 'routes/readSMS.php';
 require 'routes/downloadstockdata.php';
 require 'routes/selectcompanytodisplay.php';
 require 'routes/displaystoreddata.php';

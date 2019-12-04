@@ -15,14 +15,14 @@ define('DIRSEP', DIRECTORY_SEPARATOR);
 
 $url_root = $_SERVER['SCRIPT_NAME'];
 $url_root = implode('/', explode('/', $url_root, -1));
-$css_path = $url_root . '/css/standard.css';
+$css_path = $url_root . 'Coursework_Public/css/standard.css';
 
 $script_filename = $_SERVER["SCRIPT_FILENAME"];
 $arr_script_filename = explode('/' , $script_filename, '-1');
 $script_path = implode('/', $arr_script_filename) . '/';
 
 define('CSS_PATH', $css_path);
-define('APP_NAME', 'Stock Quote Charts');
+define('APP_NAME', 'SMS messaging client');
 define('LANDING_PAGE', $url_root);
 
 define ('LIB_CHART_OUTPUT_PATH', 'media/charts/');
