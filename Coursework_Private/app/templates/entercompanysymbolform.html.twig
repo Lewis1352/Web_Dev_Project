@@ -1,0 +1,18 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <div id="page-content-div">
+        <h2>{{ page_heading_2 }}</h2>
+        <p>{{ page_text | raw }}</p>
+        <form action="{{ action }}" method="{{ method }}">
+            <fieldset>
+                <legend>Company stack data</legend>
+                <p>Enter a 3 character company symbol:</p>
+                <p><label for="company_symbol">Company symbol:&nbsp;</label>
+                    <input name="company_symbol" type="text" id="company_symbol" size="5" value="" maxsize="3"/></td>
+                </p>
+                <br>
+                <input type="submit" value="{{ submit_button_text }}">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <h2>{{ page_heading_2 }}</h2>
+    <p>{{ page_text }}</p>
+    <p>Company selected was <b>{{ company_name }}</b></p>
+    <h3>Stock Data</h3>
+    <table border="1">
+        <tbody>
+        <tr><th>Date</th><th>Time</th><th>Stock Value</th></tr>
+        {% for stock_data in company_data_set %}
+            <tr><td>{{ stock_data.date }}</td><td>{{ stock_data.time }}</td><td>{{ stock_data.value }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br />
+    <h3>Line Chart</h3>
+    <img src="{{ chart_location }}" />
+    <br />
+    <br />
+    <p class="curr_page"><a href="{{ landing_page }}">Another Company</a></p>
+{% endblock %}
