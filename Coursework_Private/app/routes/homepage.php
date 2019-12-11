@@ -25,7 +25,7 @@ $app->get('/', function(Request $request, Response $response) use ($app) {
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
             'page_text' => 'This application will allow you to read and send sms messages',
-            'download_data' => LANDING_PAGE . '/readSMS',
+            'readSMS' => LANDING_PAGE . '/readSMS',
             'selectcompanytodisplay' => LANDING_PAGE . '/selectcompanytodisplay',
         ]);
 

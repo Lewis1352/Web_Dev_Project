@@ -6,10 +6,10 @@
  * Time: 12:33
  */
 
-ini_set('display_errors', 'On');
-ini_set('html_errors', 'On');
-ini_set('xdebug.trace_output_name', 'SoapClient.%t');
-ini_set('xdebug.trace_format', 1);
+//ini_set('display_errors', 'On');
+//ini_set('html_errors', 'On');
+//ini_set('xdebug.trace_output_name', 'SoapClient.%t');
+//ini_set('xdebug.trace_format', 1);
 
 define('DIRSEP', DIRECTORY_SEPARATOR);
 

@@ -12,7 +12,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->get('/selectSMSRead', function(Request $request, Response $response) use ($app)
+$app->get('/readSMS', function(Request $request, Response $response) use ($app)
 {
 
     //$submit_button_text = 'Retrieve the company stock data >>>';
@@ -22,20 +22,17 @@ $app->get('/selectSMSRead', function(Request $request, Response $response) use (
     //$page_text .= '<p>Enter a company symbol, then select ' . $submit_button_text . '</p>';
 
     $html_output = $this->view->render($response,
-        'selectSMSRead.html.twig',
+        'readSMS.html.twig',
         [
             'css_path' => CSS_PATH,
             'landing_page' => LANDING_PAGE,
-            'method' => 'post',
-            'action' => 'downloadstockdata',
-            'initial_input_box_value' => null,
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
             'page_heading_2' => 'SMS messages',
-            //'submit_button_text' => $submit_button_text,
             'page_text' => $page_text,
         ]);
 
+
     return $html_output;
 
-})->setName('selectSMSRead');
+})->setName('readSMS');
