@@ -1,0 +1,10 @@
+Created an data encryption/decryption class
+created a logging class with email functionality
+created a log_example.php to test both classes
+
+
+TODO: Need to implement my code into the main code and delete this folder and place everything in the correct place in the private folder:
+1. Create containers for the classes. and place within /src
+log_example is just used as a guide for how to log and also how to encrypt and decrypt data
+
+2. encrypt all sensitive data that is being used in databases etc.
