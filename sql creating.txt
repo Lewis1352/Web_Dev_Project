@@ -1,2 +1,25 @@
 CREATE TABLE messages (id INT NOT NULL, content VARCHAR(252), metadata VARCHAR(252),
        sent_date date, PRIMARY KEY (id));
+
+
+
+
+INSERT INTO messages (id, metadata, content, sent_date)
+VALUES (1, 'metadata', 'html content', 2020/01/10);
+
+
+
+INSERT INTO messages (id, metadata, content, sent_date)
+VALUES (2, 'metadata2', 'html content2', 2020/01/10);
+
+
+
+
+INSERT INTO messages (id, metadata, content, sent_date)
+VALUES (3, 'metadata3', 'html content3', 2020/01/09);
+
+
+
+
+INSERT INTO messages (id, metadata, content, sent_date)
+VALUES (4, 'metadata4', 'html content4', 2020/01/08);
