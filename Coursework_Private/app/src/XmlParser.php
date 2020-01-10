@@ -9,7 +9,7 @@
  * @copyright De Montfort University
  */
 
-namespace SoapClient;
+namespace Coursework;
 
 class XmlParser
 {

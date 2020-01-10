@@ -1,6 +1,6 @@
 <?php
 
-namespace SoapClient;
+namespace Coursework;
 
 class soapWrapper
 {
@@ -10,36 +10,36 @@ class soapWrapper
         $soap_server_connection_result = null;
         $arr_soapclient = array();
 
-        $arr_stock_exchange_connection_details = StockQuoteConfig::get_stock_exchange_connection_details();
-        $wsdl = $arr_stock_exchange_connection_details['wsdl'];
+        $wsdl = WSDL;
 
         $arr_soapclient = array('trace' => true, 'exceptions' => true);
 
         try
         {
-            $this->soap_client_handle = new SoapClient($wsdl, $arr_soapclient);
+            $this->soap_client_handle = new \SoapClient($wsdl, $arr_soapclient);
             $soap_server_connection_result = true;
         }
         catch (SoapFault $obj_exception)
         {
             $soap_server_connection_result = false;
         }
-        $this->downloaded_stockquote_data['soap-server-connection-result'] = $soap_server_connection_result;
+
+        $this->downloaded_message_data['soap-server-connection-result'] = $soap_server_connection_result;
+
+        return $this->soap_client_handle;
     }
 
-    public function getStockquoteData()
+    public function getSoapData()
     {
         $soap_server_get_quote_result = null;
         $stock_quote_data = null;
         $raw_xml = '';
-        $sanitised_company_symbol = $this->downloaded_stockquote_data['sanitised-company-symbol'];
-        $arr_company_symbol = ['symbol' => $sanitised_company_symbol];
 
         if ($this->soap_client_handle)
         {
             try
             {
-                $stock_quote_data = $this->soap_client_handle->GetQuote($arr_company_symbol);
+                $stock_quote_data = $this->getQuote();
 
                 $raw_xml = $stock_quote_data->GetQuoteResult;
                 if (strcmp($raw_xml, 'exception') == 0)
@@ -59,5 +59,6 @@ class soapWrapper
         $this->downloaded_stockquote_data['raw-xml'] = $raw_xml;
         $this->downloaded_stockquote_data['soap-server-get-quote-result'] = $soap_server_get_quote_result;
     }
+
 
 }

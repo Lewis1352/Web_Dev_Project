@@ -29,7 +29,7 @@ define ('LIB_CHART_OUTPUT_PATH', 'media/charts/');
 define ('LIB_CHART_FILE_PATH', $script_path);
 define ('LIB_CHART_CLASS_PATH', 'libchart/classes/');
 
-$wsdl = 'http://ws.cdyne.com/delayedstockquote/delayedstockquote.asmx?wsdl';
+$wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
 define('WSDL', $wsdl);
 
 $settings = [

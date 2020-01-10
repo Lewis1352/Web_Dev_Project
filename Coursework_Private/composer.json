@@ -2,7 +2,8 @@
 
   "autoload": {
     "psr-4": {
-      "App\\": "app/src/"
+      "App\\": "app/src/",
+      "CourseWork\\": "Coursework_Private/app/src"
     }
   }
 }

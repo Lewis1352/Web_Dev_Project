@@ -3,7 +3,7 @@
  * @package stock-quotes
  */
 
-namespace SoapClient;
+namespace Coursework;
 
 class RetrieveStockDataModel
 {

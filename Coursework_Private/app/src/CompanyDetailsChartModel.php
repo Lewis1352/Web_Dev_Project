@@ -6,7 +6,7 @@
  * @package stock-quotes-charts
  */
 
-namespace SoapClient;
+namespace Coursework;
 
 class CompanyDetailsChartModel
 {

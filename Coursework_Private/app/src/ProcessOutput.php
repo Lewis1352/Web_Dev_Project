@@ -1,6 +1,6 @@
 <?php
 
-namespace SoapClient;
+namespace Coursework;
 
 class ProcessOutput
 {

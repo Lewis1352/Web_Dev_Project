@@ -6,7 +6,7 @@
  * Time: 10:01
  */
 
-namespace SoapClient;
+namespace Coursework;
 
 class CompanyDetailsModel
 {

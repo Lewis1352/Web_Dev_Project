@@ -15,7 +15,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->post('/downloaddata', function(Request $request, Response $response) use ($app)
 {
 
-    $company_symbols = downlloadStockData($app);
+    $company_symbols = downloadStockData($app);
 
     $company_stock_data = '';
     $submit_button_text = 'Another Company >>>';

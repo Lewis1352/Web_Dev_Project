@@ -13,7 +13,7 @@
  * @copyright CFI
  */
 
-namespace SoapClient;
+namespace Coursework;
 
 class SQLQueries
 {

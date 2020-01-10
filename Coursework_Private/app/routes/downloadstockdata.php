@@ -12,15 +12,9 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->post('/downloadstockdata', function(Request $request, Response $response) use ($app)
+$app->get('/downloadmessages', function(Request $request, Response $response) use ($app)
 {
-
-
-    $tainted_parameters = $request->getParsedBody();
-
-    $validated_company_symbol = validateCompanySymbol($app, $tainted_parameters);
-
-    $company_symbols = downloadStockData($app, $validated_company_symbol);
+    $company_symbols = downloadStockData($app);
 
     $company_stock_data = '';
     $submit_button_text = 'Another Company >>>';
@@ -44,13 +38,13 @@ $app->post('/downloadstockdata', function(Request $request, Response $response) 
             'route' => 'entercompanysymbol',
         ]);
 
-    $processed_output = processOutput($app, $html_output);
+    $processed_output = new \Coursework\processOutput($app, $html_output);
 
     return $processed_output;
 
 })->setName('downloadstockdata');
 
-function downloadStockData($app, $validated_company_symbol)
+function downloadStockData($app)
 {
     $company_stock_data = [];
 
@@ -60,17 +54,17 @@ function downloadStockData($app, $validated_company_symbol)
 
     if (is_object($soap_client))
     {
-        $soap_call_function = 'GetQuote';
+        $soap_call_function = 'peakMessages';
         $soap_call_parameters =
             [
-                'StockSymbol' => $validated_company_symbol,
-                'LicenseKey' => '0',
+
             ];
-        $webservice_value = 'GetQuoteResult';
+        $webservice_value = '';
 
         $soap_wrapper->getSoapData($soap_client, $soap_call_function, $soap_call_parameters, $webservice_value);
     }
 
+    var_dump($company_stock_data); die('');
     return $company_stock_data;
 }
 

@@ -14,12 +14,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/readSMS', function(Request $request, Response $response) use ($app)
 {
-
-    //$submit_button_text = 'Retrieve the company stock data >>>';
-
     $page_text  = 'Select a message to read';
-    //$page_text .= '<br>See <a href="http://www.eoddata.com/symbols.aspx">EOD Data</a> for a list of company symbols';
-    //$page_text .= '<p>Enter a company symbol, then select ' . $submit_button_text . '</p>';
 
     $html_output = $this->view->render($response,
         'readSMS.html.twig',
@@ -36,3 +31,37 @@ $app->get('/readSMS', function(Request $request, Response $response) use ($app)
     return $html_output;
 
 })->setName('readSMS');
+
+function retrieveStockquoteData2($app, $validated_company_symbol)
+{
+
+    $database_wrapper = $app->getContainer()->get('databaseWrapper');
+    $sql_queries = $app->getContainer()->get('sqlQueries');
+    $companyDetailsModel = $app->getContainer()->get('companyDetailsModel');
+
+    $settings = $app->getContainer()->get('settings');
+
+    $database_connection_settings = $settings['pdo_settings'];
+
+    $companyDetailsModel->setSqlQueries($sql_queries);
+    $companyDetailsModel->setDatabaseConnectionSettings($database_connection_settings);
+    $companyDetailsModel->setDatabaseWrapper($database_wrapper);
+
+    $company_details = $companyDetailsModel->getCompanyStockData($validated_company_symbol);
+
+    return $company_details;
+}
+
+
+function createChart2($app, array $company_stock_data)
+{
+    require_once 'libchart/classes/libchart.php';
+
+    $companyDetailsChartModel = $app->getContainer()->get('companyDetailsChartModel');
+
+    $companyDetailsChartModel->setStoredCompanyStockData($company_stock_data);
+    $companyDetailsChartModel->createLineChart();
+    $chart_details = $companyDetailsChartModel->getLineChartDetails();
+
+    return $chart_details;
+}
