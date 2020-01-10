@@ -42,6 +42,7 @@ $app->post(
         return $processed_output;
     });
 
+/*
 function createChart($app, array $company_stock_data)
 {
     require_once 'libchart/classes/libchart.php';
@@ -54,7 +55,7 @@ function createChart($app, array $company_stock_data)
 
     return $chart_details;
 }
-
+*/
 function validateCompanySymbol($app, array $tainted_parameters): string
 {
     $validator = $app->getContainer()->get('validator');

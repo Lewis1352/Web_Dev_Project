@@ -14,61 +14,36 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/downloadmessages', function(Request $request, Response $response) use ($app)
 {
-    $company_symbols = downloadStockData($app);
+    $messageData = downloadMessageData($app);
 
-    $company_stock_data = '';
-    $submit_button_text = 'Another Company >>>';
-    $company_symbols = [];
+    storeDownloadedMessageData($app,$messageData);
 
-    $html_output = $this->view->render($response,
-        'downloadedstockdataform.html.twig',
-        [
-            'css_path' => CSS_PATH,
-            'landing_page' => LANDING_PAGE,
-            'method' => 'post',
-            'action' => 'displaystockquotedetails',
-            'initial_input_box_value' => null,
-            'page_title' => APP_NAME,
-            'page_heading_1' => APP_NAME,
-            'page_heading_2' => 'Display downloaded stock quote data',
-            'company_stock_datanames' => $company_stock_data,
-            'company_symbol' => $validated_company_symbol,
-            'submit_button_text' => $submit_button_text,
-            'page_text' => $submit_button_text,
-            'route' => 'entercompanysymbol',
-        ]);
-
-    $processed_output = new \Coursework\processOutput($app, $html_output);
-
-    return $processed_output;
-
+    return $response->withRedirect(LANDING_PAGE.'/readSMS', 303);
 })->setName('downloadstockdata');
 
-function downloadStockData($app)
+function downloadMessageData($app)
 {
-    $company_stock_data = [];
-
     $soap_wrapper = $app->getContainer()->get('SoapClient');
 
     $soap_client = $soap_wrapper->createSoapClient();
 
     if (is_object($soap_client))
     {
-        $soap_call_function = 'peakMessages';
         $soap_call_parameters =
             [
-
+                'username' => '19_16216247',
+                'password' => '89UQ6Mmtq18S',
+                'count' => 0
             ];
         $webservice_value = '';
 
-        $soap_wrapper->getSoapData($soap_client, $soap_call_function, $soap_call_parameters, $webservice_value);
+        $soap_wrapper->getSoapData($soap_call_parameters, $webservice_value);
     }
 
-    var_dump($company_stock_data); die('');
-    return $company_stock_data;
+    return $soap_wrapper->downloaded_stockquote_data['raw-xml'];
 }
 
-function storeDownloadedStockData($app, $validated_company_symbol)
+function storeDownloadedMessageData($app,$messageData)
 {
     $store_data_result = null;
 
@@ -80,9 +55,15 @@ function storeDownloadedStockData($app, $validated_company_symbol)
 
     $database_connection_settings = $settings['pdo_settings'];
 
-    $companyDetailsModel->setSqlQueries($sql_queries);
-    $companyDetailsModel->setDatabaseConnectionSettings($database_connection_settings);
-    $companyDetailsModel->setDatabaseWrapper($database_wrapper);
+    foreach($messageData as $message){
+        $companyDetailsModel->setSqlQueries($sql_queries);
+        $companyDetailsModel->setDatabaseConnectionSettings($database_connection_settings);
+        $companyDetailsModel->setDatabaseWrapper($database_wrapper);
+
+        $companyDetailsModel->storeMessageData($message);
+    }
+
+
 
 //    $store_data_result = $companyDetailsModel->getCompanySymbols();
     return $store_data_result;

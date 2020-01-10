@@ -3,6 +3,18 @@
     <div id="page-content-div">
         <h2>{{ page_heading_2 }}</h2>
         <p>{{ page_text | raw }}</p>
+        <table>
+            <tr>
+                <th>Received date</th>
+                <th>Content</th>
+            </tr>
+            {% for message in messages %}
+                <tr>
+                    <td>{{ message.received_date|e }}</td>
+                    <td>{{ message.content|e }}</td>
+                </tr>
+            {% endfor %}
+        </table>
 
     </div>
 {% endblock %}

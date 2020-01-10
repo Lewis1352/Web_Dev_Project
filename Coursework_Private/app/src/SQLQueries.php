@@ -29,13 +29,11 @@ class SQLQueries
         return $query_string;
     }
 
-    public function getCompanyStockData()
+    public function getMessageData()
     {
-        $query_string  = "SELECT stock_last_value, stock_date, stock_time, stock_company_name ";
-        $query_string .= "FROM company_name, stock_data ";
-        $query_string .= "WHERE company_name.stock_company_symbol = :stock_company_symbol ";
-        $query_string .= "AND company_name.stock_company_name_id = stock_data.fk_company_stock_id ";
-        $query_string .= "ORDER BY stock_date";
+        $query_string  = "SELECT * ";
+        $query_string .= "FROM messages ";
+        $query_string .= "ORDER BY received_date";
         return $query_string;
     }
     public function checkCompanySymbol()
@@ -75,14 +73,12 @@ class SQLQueries
         return $query_string;
     }
 
-    public function storeCompanyStockData()
+    public function storeMessageData()
     {
-        $query_string  = "INSERT INTO sq_stock_data ";
+        $query_string  = "INSERT INTO messages ";
         $query_string .= "SET ";
-        $query_string .= "stock_date = :stock_date, ";
-        $query_string .= "stock_time = :stock_time, ";
-        $query_string .= "stock_last_value = :stock_last_value, ";
-        $query_string .= "fk_company_stock_id = :fk_company_stock_id;";
+        $query_string .= "content = :message_content, ";
+        $query_string .= "received_date = :message_received_date";
         return $query_string;
     }
 

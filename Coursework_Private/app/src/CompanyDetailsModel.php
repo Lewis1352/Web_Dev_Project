@@ -61,20 +61,20 @@ class CompanyDetailsModel
     }
 
 
-    public function getCompanyStockData($validated_company_symbol)
+    public function getMessageData()
     {
-        $company_details = [];
-        $stock_company_name = '';
+        $messages = [];
+        $message_id = '';
         $company_stock_values_list = [];
 
-        $query_string = $this->sql_queries->getCompanyStockData();
-        $query_parameters = [':stock_company_symbol' => $validated_company_symbol];
+        $query_string = $this->sql_queries->getMessageData();
+        #$query_parameters = [':stock_company_symbol' => $validated_company_symbol];
 
         $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
 
         $this->database_wrapper->makeDatabaseConnection();
 
-        $this->database_wrapper->safeQuery($query_string, $query_parameters);
+        $this->database_wrapper->safeQuery($query_string);
 
         $number_of_data_sets = $this->database_wrapper->countRows();
 
@@ -83,23 +83,40 @@ class CompanyDetailsModel
             $lcv = 0;
             while ($row = $this->database_wrapper->safeFetchArray())
             {
-                $stock_company_name = $row['stock_company_name'];
-                $company_stock_values_list[$lcv]['date'] = $row['stock_date'];
-                $company_stock_values_list[$lcv]['time'] = $row['stock_time'];
-                $company_stock_values_list[$lcv++]['value'] = $row['stock_last_value'];
+                $message_id = $row['id'];
+                $company_stock_values_list[$lcv]['received_date'] = $row['received_date'];
+                $company_stock_values_list[$lcv++]['content'] = $row['content'];
             }
         }
         else
         {
-            $company_details[0] = 'No company details found';
+            $messages[0] = 'No messages found';
         }
 
-        $company_details['$company_symbol'] = $validated_company_symbol;
-        $company_details['company-name'] = $stock_company_name;
-        $company_details['company-data-sets'] = $number_of_data_sets;
-        $company_details['company-retrieved-data'] = $company_stock_values_list;
+        #$messages['$company_symbol'] = $validated_company_symbol;
+        $messages['id'] = $message_id;
+        $messages['company-data-sets'] = $number_of_data_sets;
+        $messages['company-retrieved-data'] = $company_stock_values_list;
 
-        return $company_details;
+        return $messages;
+    }
+
+    public function storeMessageData($message){
+        $messageContent = simplexml_load_string($message);
+
+        if($messageContent->message->id == '18-3110-AE'){
+            $query_string = $this->sql_queries->storeMessageData();
+            $query_parameters = [
+                ':message_received_date' => date("Y-m-d H:i:s", strtotime($messageContent->receivedtime) ),
+                ':message_content' => $message
+            ];
+
+            $this->database_wrapper->setDatabaseConnectionSettings($this->database_connection_settings);
+
+            $this->database_wrapper->makeDatabaseConnection();
+
+            $this->database_wrapper->safeQuery($query_string, $query_parameters);
+        }
     }
 
 }

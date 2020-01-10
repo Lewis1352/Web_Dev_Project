@@ -29,7 +29,10 @@ class soapWrapper
         return $this->soap_client_handle;
     }
 
-    public function getSoapData()
+
+
+    public function getSoapData($soap_call_parameters)
+
     {
         $soap_server_get_quote_result = null;
         $stock_quote_data = null;
@@ -39,10 +42,9 @@ class soapWrapper
         {
             try
             {
-                $stock_quote_data = $this->getQuote();
-
-                $raw_xml = $stock_quote_data->GetQuoteResult;
-                if (strcmp($raw_xml, 'exception') == 0)
+                $message_data = $this->soap_client_handle->__soapcall('peekMessages',$soap_call_parameters);
+                $raw_xml = $message_data;
+                if (is_array($raw_xml))
                 {
                     $soap_server_get_quote_result = false;
                 }
@@ -59,6 +61,5 @@ class soapWrapper
         $this->downloaded_stockquote_data['raw-xml'] = $raw_xml;
         $this->downloaded_stockquote_data['soap-server-get-quote-result'] = $soap_server_get_quote_result;
     }
-
 
 }
