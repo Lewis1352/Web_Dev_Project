@@ -1,2 +1,2 @@
-INSERT INTO table_name (column1, column2, column3, ...)
-VALUES (value1, value2, value3, ...);
+CREATE TABLE messsages (id INT NOT NULL, content VARCHAR(252), metadata VARCHAR(252),
+       sent_date date, PRIMARY KEY (id));
