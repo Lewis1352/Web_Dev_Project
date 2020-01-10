@@ -1,3 +1,5 @@
-CREATE TABLE messages (id INT NOT NULL AUTO_INCREMENT, receive_date date, content text, PRIMARY KEY (id));
+CREATE DATABASE IF NOT EXISTS 'coursework' COLLATE 'utf8_unicode';
+
+CREATE TABLE messages (id INT NOT NULL AUTO_INCREMENT, received_date date, content text, PRIMARY KEY (id));
 
 GRANT SELECT, INSERT, UPDATE ON coursework.* TO 'coursework_user'@'localhost' IDENTIFIED BY 'coursework_user_pass';
