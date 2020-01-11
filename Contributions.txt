@@ -1,1 +1,5 @@
+Lewis: inital project setup and repo creation. Creation of database. Displaying messages data to screen from database.
 
+Jack: Interaction with soap server. Storing message data into database. 
+
+Sam: Logging?
