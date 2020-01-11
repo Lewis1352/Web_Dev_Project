@@ -1,5 +1,7 @@
-CREATE DATABASE IF NOT EXISTS `coursework` COLLATE 'utf8_unicode_ci';
+  DROP DATABASE IF EXISTS coursework;
 
-CREATE TABLE coursework.messages (id INT NOT NULL AUTO_INCREMENT, received_date datetime, fan VARCHAR(252), heater INT, keypad varchar(1), switch_1 VARCHAR(10), switch_2 VARCHAR(10), switch_3 VARCHAR(10), switch_4 VARCHAR(10), PRIMARY KEY (id));
+  CREATE DATABASE coursework COLLATE `utf8_unicode_ci`;
 
-GRANT SELECT, INSERT, UPDATE ON coursework.* TO 'coursework_user'@'localhost' IDENTIFIED BY 'coursework_user_pass';
+  CREATE TABLE coursework.messages (id INT NOT NULL AUTO_INCREMENT, received_date datetime, bearer VARCHAR(50), soursemsisdn VARCHAR(252), destinationmsisdn VARCHAR(252), fan VARCHAR(252), heater INT, keypad varchar(1), switch_1 VARCHAR(10), switch_2 VARCHAR(10), switch_3 VARCHAR(10), switch_4 VARCHAR(10),PRIMARY KEY (id));
+
+  GRANT SELECT, INSERT, UPDATE ON coursework.* TO 'coursework_user'@'localhost' IDENTIFIED BY 'coursework_user_pass';
