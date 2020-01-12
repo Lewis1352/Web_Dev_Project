@@ -2,4 +2,4 @@ Lewis: inital project setup and repo creation. Creation of database. Displaying 
 
 Jack: Interaction with soap server. Storing message data into database. 
 
-Sam: Logging?
+Sam: Logging and encryption/decryption/hashing classes.
