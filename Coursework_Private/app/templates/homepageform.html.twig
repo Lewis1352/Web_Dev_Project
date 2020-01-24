@@ -1,11 +1,10 @@
 {% extends 'banner.html.twig' %}
 {% block content %}
     <div id="page-content-div">
-        <h2>{{ page_heading_2 }}</h2>
         <p>{{ page_text }}</p>
         <p>Select option</p>
         <p><a href="{{ readSMS }}">Read messages</a></p>
-        <p><a href="{{ selectcompanytodisplay }}">Send message (not working currently)</a></p>
+        <p><a href="{{ path_for('sendSMS') }}">Send message</a></p>
         <br />
     </div>
 {% endblock %}

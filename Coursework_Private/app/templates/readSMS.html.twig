@@ -3,15 +3,34 @@
     <div id="page-content-div">
         <h2>{{ page_heading_2 }}</h2>
         <p>{{ page_text | raw }}</p>
+        <p><a href="{{ get_messages }}">Refresh Messages</a></p>
         <table>
             <tr>
                 <th>Received date</th>
-                <th>Content</th>
+                <th>Soursemsisdn</th>
+                <th>Destinationmsisdn</th>
+                <th>Bearer</th>
+                <th>Switch_1</th>
+                <th>Switch_2</th>
+                <th>Switch_3</th>
+                <th>Switch_4</th>
+                <th>Fan</th>
+                <th>Heater</th>
+                <th>Keypad</th>
             </tr>
             {% for message in messages %}
                 <tr>
-                    <td>{{ message.received_date|e }}</td>
-                    <td>{{ message.content|e }}</td>
+                    <td>{{ message.received_date| e | default("Error") }}</td>
+                    <td>{{ message.soursemsisdn| e | default("Error") }}</td>
+                    <td>{{ message.destinationmsisdn| e | default("Error") }}</td>
+                    <td>{{ message.bearer| e | default("Error") }}</td>
+                    <td>{{ message.switch_1| e | default("Error") }}</td>
+                    <td>{{ message.switch_2| e | default("Error") }}</td>
+                    <td>{{ message.switch_3| e | default("Error") }}</td>
+                    <td>{{ message.switch_4| e | default("Error") }}</td>
+                    <td>{{ message.fan| e | default("Error") }}</td>
+                    <td>{{ message.heater| e | default("Error") }}</td>
+                    <td>{{ message.keypad| e | default("Error") }}</td>
                 </tr>
             {% endfor %}
         </table>

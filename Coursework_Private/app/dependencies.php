@@ -22,13 +22,13 @@ $container['validator'] = function ($container) {
   return $validator;
 };
 
-$container['companyDetailsModel'] = function ($container) {
-  $model = new \Coursework\CompanyDetailsModel();
-  return $model;
+$container['XmlSanitizer'] = function ($container) {
+    $validator = new \Coursework\XmlSanitizer();
+    return $validator;
 };
 
-$container['companyDetailsChartModel'] = function ($container) {
-  $model = new \Coursework\CompanyDetailsChartModel();
+$container['messageModel'] = function ($container) {
+  $model = new \Coursework\MessageModel();
   return $model;
 };
 
@@ -42,13 +42,8 @@ $container['sqlQueries'] = function ($container) {
   return $sql_queries;
 };
 
-$container['retrieveStockDataModel'] = function ($container) {
-    $retrieve_stock_data_model = new \Coursework\RetrieveStockDataModel();
-    return $retrieve_stock_data_model;
-};
-
 $container['SoapClient'] = function ($container) {
-    $retrieve_stock_data_model = new \Coursework\SoapWrapper();
+    $retrieve_stock_data_model = new \Coursework\soapWrapper();
     return $retrieve_stock_data_model;
 };
 

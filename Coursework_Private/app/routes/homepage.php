@@ -2,16 +2,17 @@
 /**
  * homepage.php
  *
- * Choose an action
+ * Homepage showing actions that can be taken
  *
- * Author: CF Ingrams
- * Email: <cfi@dmu.ac.uk>
- * Date: 18/10/2015
+ * Author: 18-3110-AP
  * */
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+/**
+ * This is the landing page for the site
+ */
 $app->get('/', function(Request $request, Response $response) use ($app) {
 
     $html_output = $this->view->render($response,
@@ -25,8 +26,8 @@ $app->get('/', function(Request $request, Response $response) use ($app) {
             'page_title' => APP_NAME,
             'page_heading_1' => APP_NAME,
             'page_text' => 'This application will allow you to read and send sms messages',
-            'readSMS' => LANDING_PAGE . '/readSMS',
-            'selectcompanytodisplay' => LANDING_PAGE . '/selectcompanytodisplay',
+            'readSMS' => LANDING_PAGE . '/downloadmessages',
+
         ]);
 
 

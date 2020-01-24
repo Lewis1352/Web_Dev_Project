@@ -1,0 +1,39 @@
+{% extends 'banner.html.twig' %}
+{% block content %}
+    <h2>Send SMS</h2>
+    <div id="page-content-div">
+        <form action="{{ path_for('sendSMSPost') }}" method="POST">
+            {% include 'switchSelect.html.twig' with {'name': 's1','label': 'Switch_1'} %}
+            {% include 'switchSelect.html.twig' with {'name': 's2','label': 'Switch_2'} %}
+            {% include 'switchSelect.html.twig' with {'name': 's3','label': 'Switch_3'} %}
+            {% include 'switchSelect.html.twig' with {'name': 's4','label': 'Switch_4'} %}
+            <div>
+                <label for="heater">Heater</label>
+                <input required="required" id="heater" name="heater" type="number" max="999" min="0">
+            </div>
+            <div>
+                <label for="fan">Fan</label>
+                <select id="fan" name="fan">
+                    <option value="forward">
+                        Forward
+                    </option>
+                    <option value="reverse">
+                        Reverse
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label for="keypad">Keypad</label>
+                <select id="keypad" name="keypad">
+                    {% for number in 1..9 %}
+                    <option>
+                        {{ number }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button>Send</button>
+        </form>
+
+    </div>
+{% endblock %}

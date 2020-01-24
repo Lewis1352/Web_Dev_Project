@@ -1,20 +1,22 @@
 <?php
 
 /**
- * DatabaseWrapper.phpphp
+ * DatabaseWrapper.php
  *
  * Access the sessions database
  *
- * Author: CF Ingrams
- * Email: <clinton@cfing.co.uk>
- * Date: 22/10/2017
- *
- * @author CF Ingrams <clinton@cfing.co.uk>
- * @copyright CFI
+ * Author: 18-3110-AP
  */
 
 namespace Coursework;
 
+/**
+ * Class DatabaseWrapper
+ *
+ * Used to interact with the database
+ *
+ * @package Coursework
+ */
 class DatabaseWrapper
 {
     private $db_handle;
@@ -23,6 +25,9 @@ class DatabaseWrapper
     private $errors;
     private $database_connection_settings;
 
+    /**
+     * DatabaseWrapper constructor.
+     */
     public function __construct()
     {
         $this->db_handle = null;
@@ -31,18 +36,26 @@ class DatabaseWrapper
         $this->errors = [];
     }
 
+    /**
+     * DatabaseWrapper destructor.
+     */
     public function __destruct() { }
 
+    /**
+     * Set new database settings
+     * @param $database_connection_settings new settings
+     */
     public function setDatabaseConnectionSettings($database_connection_settings)
     {
         $this->database_connection_settings = $database_connection_settings;
     }
 
     /**
-     * '\' character in front of the PDO class name signifies that it is a globally available class
-     * and is not part of the Sessins namespavce
-     *
-     * @return string
+     *  Initialise database connection
+     *  Uses PDO
+     *  Gets settings from database_connection_settings
+     *  Try catch for handling PDO errors
+     *  @return string error message if applicable
      */
     public function makeDatabaseConnection()
     {
@@ -72,16 +85,18 @@ class DatabaseWrapper
         return $pdo_error;
     }
 
+    /**
+     *
+     */
     public function setLogger(){}
 
     /**
-     * @param $query_string
-     * @param null $params
+     * Used to perform an sql query with error handling
+     * catch for PDO errors
      *
-     * For transparency, each parameter value is bound separately to its placeholder
-     * This is not always strictly necessary.
-     *
-     * @return mixed
+     * @param $query_string query to be performed
+     * @param null $params extra parameters for query
+     * @return mixed error message if applicable
      */
     public function safeQuery($query_string, $params = null)
     {
@@ -100,38 +115,29 @@ class DatabaseWrapper
             $error_message .= 'Error with the database access.' . "\n";
             $error_message .= 'SQL query: ' . $query_string . "\n";
             $error_message .= 'Error: ' . var_dump($this->prepared_statement->errorInfo(), true) . "\n";
-            // NB would usually log to file for sysadmin attention
             $this->errors['db_error'] = true;
             $this->errors['sql_error'] = $error_message;
         }
         return $this->errors['db_error'];
     }
 
+    /**
+     * Counts number of rows in prepare_statement
+     * @return mixed rows in the prepared statement
+     */
     public function countRows()
     {
         $num_rows = $this->prepared_statement->rowCount();
         return $num_rows;
     }
 
-    public function safeFetchRow()
-    {
-        $record_set = $this->prepared_statement->fetch(\PDO::FETCH_NUM);
-        return $record_set;
-    }
-
+    /**
+     * Fetches result from query
+     * @return mixed array of result
+     */
     public function safeFetchArray()
     {
         $arr_row = $this->prepared_statement->fetch(\PDO::FETCH_ASSOC);
         return $arr_row;
-    }
-
-    public function lastInsertedID()
-    {
-        $sql_query = 'SELECT LAST_INSERT_ID()';
-
-        $this->safeQuery($sql_query);
-        $arr_last_inserted_id = $this->safeFetchArray();
-        $last_inserted_id = $arr_last_inserted_id['LAST_INSERT_ID()'];
-        return $last_inserted_id;
     }
 }
